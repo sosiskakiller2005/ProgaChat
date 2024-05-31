@@ -1,0 +1,392 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище ProgaChatDbModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LanguageId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Chapter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookId" Type="int" Nullable="false" />
+          <Property Name="ChapterNumber" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChapterText">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChapterId" Type="int" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProgrammingLanguage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Solution">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Image" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LanguageId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="18" Nullable="false" />
+          <Property Name="LanguageId" Type="int" Nullable="false" />
+          <Property Name="Photo" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Book_ProgrammingLanguage">
+          <End Role="ProgrammingLanguage" Type="Self.ProgrammingLanguage" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProgrammingLanguage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chapter_Book">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="Chapter" Type="Self.Chapter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Chapter">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChapterText_Chapter">
+          <End Role="Chapter" Type="Self.Chapter" Multiplicity="1" />
+          <End Role="ChapterText" Type="Self.ChapterText" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chapter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChapterText">
+              <PropertyRef Name="ChapterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Solution_ProgrammingLanguage">
+          <End Role="ProgrammingLanguage" Type="Self.ProgrammingLanguage" Multiplicity="1" />
+          <End Role="Solution" Type="Self.Solution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProgrammingLanguage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Solution">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_ProgrammingLanguage">
+          <End Role="ProgrammingLanguage" Type="Self.ProgrammingLanguage" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProgrammingLanguage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ProgaChatDbModelContainer">
+          <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Chapter" EntityType="Self.Chapter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChapterText" EntityType="Self.ChapterText" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProgrammingLanguage" EntityType="Self.ProgrammingLanguage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Solution" EntityType="Self.Solution" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Book_ProgrammingLanguage" Association="Self.FK_Book_ProgrammingLanguage">
+            <End Role="ProgrammingLanguage" EntitySet="ProgrammingLanguage" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chapter_Book" Association="Self.FK_Chapter_Book">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="Chapter" EntitySet="Chapter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChapterText_Chapter" Association="Self.FK_ChapterText_Chapter">
+            <End Role="Chapter" EntitySet="Chapter" />
+            <End Role="ChapterText" EntitySet="ChapterText" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Solution_ProgrammingLanguage" Association="Self.FK_Solution_ProgrammingLanguage">
+            <End Role="ProgrammingLanguage" EntitySet="ProgrammingLanguage" />
+            <End Role="Solution" EntitySet="Solution" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_ProgrammingLanguage" Association="Self.FK_User_ProgrammingLanguage">
+            <End Role="ProgrammingLanguage" EntitySet="ProgrammingLanguage" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProgaChatDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LanguageId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Chapter" Relationship="Self.FK_Chapter_Book" FromRole="Book" ToRole="Chapter" />
+          <NavigationProperty Name="ProgrammingLanguage" Relationship="ProgaChatDbModel.FK_Book_ProgrammingLanguage" FromRole="Book" ToRole="ProgrammingLanguage" />
+        </EntityType>
+        <EntityType Name="Chapter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookId" Type="Int32" Nullable="false" />
+          <Property Name="ChapterNumber" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="Self.FK_Chapter_Book" FromRole="Chapter" ToRole="Book" />
+          <NavigationProperty Name="ChapterText" Relationship="Self.FK_ChapterText_Chapter" FromRole="Chapter" ToRole="ChapterText" />
+        </EntityType>
+        <EntityType Name="ChapterText">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChapterId" Type="Int32" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Chapter" Relationship="Self.FK_ChapterText_Chapter" FromRole="ChapterText" ToRole="Chapter" />
+        </EntityType>
+        <EntityType Name="ProgrammingLanguage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Solution" Relationship="Self.FK_Solution_ProgrammingLanguage" FromRole="ProgrammingLanguage" ToRole="Solution" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_ProgrammingLanguage" FromRole="ProgrammingLanguage" ToRole="User" />
+          <NavigationProperty Name="Book" Relationship="ProgaChatDbModel.FK_Book_ProgrammingLanguage" FromRole="ProgrammingLanguage" ToRole="Book" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Solution">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LanguageId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProgrammingLanguage" Relationship="Self.FK_Solution_ProgrammingLanguage" FromRole="Solution" ToRole="ProgrammingLanguage" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="18" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LanguageId" Type="Int32" Nullable="false" />
+          <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProgrammingLanguage" Relationship="Self.FK_User_ProgrammingLanguage" FromRole="User" ToRole="ProgrammingLanguage" />
+        </EntityType>
+        <Association Name="FK_Chapter_Book">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="Chapter" Type="Self.Chapter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Chapter">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChapterText_Chapter">
+          <End Role="Chapter" Type="Self.Chapter" Multiplicity="1" />
+          <End Role="ChapterText" Type="Self.ChapterText" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chapter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChapterText">
+              <PropertyRef Name="ChapterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Solution_ProgrammingLanguage">
+          <End Role="ProgrammingLanguage" Type="Self.ProgrammingLanguage" Multiplicity="1" />
+          <End Role="Solution" Type="Self.Solution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProgrammingLanguage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Solution">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_ProgrammingLanguage">
+          <End Role="ProgrammingLanguage" Type="Self.ProgrammingLanguage" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProgrammingLanguage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProgaChatDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Book" EntityType="Self.Book" />
+          <EntitySet Name="Chapter" EntityType="Self.Chapter" />
+          <EntitySet Name="ChapterText" EntityType="Self.ChapterText" />
+          <EntitySet Name="ProgrammingLanguage" EntityType="Self.ProgrammingLanguage" />
+          <EntitySet Name="Solution" EntityType="Self.Solution" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK_Chapter_Book" Association="Self.FK_Chapter_Book">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="Chapter" EntitySet="Chapter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChapterText_Chapter" Association="Self.FK_ChapterText_Chapter">
+            <End Role="Chapter" EntitySet="Chapter" />
+            <End Role="ChapterText" EntitySet="ChapterText" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Solution_ProgrammingLanguage" Association="Self.FK_Solution_ProgrammingLanguage">
+            <End Role="ProgrammingLanguage" EntitySet="ProgrammingLanguage" />
+            <End Role="Solution" EntitySet="Solution" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_ProgrammingLanguage" Association="Self.FK_User_ProgrammingLanguage">
+            <End Role="ProgrammingLanguage" EntitySet="ProgrammingLanguage" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_ProgrammingLanguage" Association="ProgaChatDbModel.FK_Book_ProgrammingLanguage">
+            <End Role="ProgrammingLanguage" EntitySet="ProgrammingLanguage" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Book_ProgrammingLanguage">
+          <End Type="ProgaChatDbModel.ProgrammingLanguage" Role="ProgrammingLanguage" Multiplicity="1" />
+          <End Type="ProgaChatDbModel.Book" Role="Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProgrammingLanguage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ProgaChatDbModelContainer" CdmEntityContainer="ProgaChatDbEntities">
+          <EntitySetMapping Name="Book">
+            <EntityTypeMapping TypeName="ProgaChatDbModel.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Chapter">
+            <EntityTypeMapping TypeName="ProgaChatDbModel.Chapter">
+              <MappingFragment StoreEntitySet="Chapter">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="ChapterNumber" ColumnName="ChapterNumber" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChapterText">
+            <EntityTypeMapping TypeName="ProgaChatDbModel.ChapterText">
+              <MappingFragment StoreEntitySet="ChapterText">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ChapterId" ColumnName="ChapterId" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProgrammingLanguage">
+            <EntityTypeMapping TypeName="ProgaChatDbModel.ProgrammingLanguage">
+              <MappingFragment StoreEntitySet="ProgrammingLanguage">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Solution">
+            <EntityTypeMapping TypeName="ProgaChatDbModel.Solution">
+              <MappingFragment StoreEntitySet="Solution">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="ProgaChatDbModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

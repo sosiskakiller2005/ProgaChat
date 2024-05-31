@@ -1,0 +1,28 @@
+﻿<Window x:Class="ProgaChat.Views.Windows.ChapterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProgaChat.Views.Windows"
+        mc:Ignorable="d"
+        Title="Выбранная глава" Height="600" Width="700"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <ScrollViewer>
+            <Grid Name="ChapterGrid" Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="{Binding Chapter.Title}" FontSize="40" FontWeight="SemiBold" Foreground="#FF2F4155" TextWrapping="Wrap"/>
+                <TextBlock Name="TextTbl" Text="{Binding Text}" TextWrapping="Wrap" Grid.Row="2" Foreground="#FF2F4155" />
+                <Button Name="BackBtn" Content="Назад" Click="BackBtn_Click" Grid.Row="4" HorizontalAlignment="Left"/>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Window>

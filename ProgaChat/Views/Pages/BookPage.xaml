@@ -1,0 +1,48 @@
+﻿<Page x:Class="ProgaChat.Views.Pages.BookPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProgaChat.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="717" d:DesignWidth="600"
+      Title="BookPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".2*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Name="LanguageTbl" FontSize="40" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+        <ListView Name="ChaptersLV" Grid.Row="1" SelectionChanged="ChaptersLV_SelectionChanged" Background="White" Width="717" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Height="150">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock TextWrapping="Wrap">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0}, глава {1}">
+                                                <Binding Path="Book.Name"/>
+                                                <Binding Path="ChapterNumber"/>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                    <TextBlock Text="{Binding Title}" Grid.Row="1" TextWrapping="Wrap"/>
+
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Page>

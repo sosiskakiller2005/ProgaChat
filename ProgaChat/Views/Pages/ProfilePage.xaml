@@ -1,0 +1,40 @@
+﻿<Page x:Class="ProgaChat.Views.Pages.ProfilePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProgaChat.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="717" d:DesignWidth="600"
+      Title="ProfilePage">
+
+    <Grid Margin="20,0" Name="UserGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />   
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="200" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Профиль" HorizontalAlignment="Center" FontSize="40" FontWeight="SemiBold" Grid.Row="1"/>
+        <Image Source="{Binding Photo}" Stretch="Fill" Grid.Row="2" Width="270"/>
+        <TextBlock Text="Почта" Grid.Row="4"/>
+        <TextBox Name="EmailTb" Text="{Binding Email}" Grid.Row="5"/>
+        <TextBlock Text="Пароль" Grid.Row="7"/>
+        <PasswordBox Name="PasswordTb" Grid.Row="8"/>
+        <TextBlock Text="Язык программирования" Grid.Row="10"/>
+        <ComboBox Name="LanguageCmb" Grid.Row="11"/>
+        <Button Name="SaveBtn" Content="Сохранить изменения" Click="SaveBtn_Click" Grid.Row="13" Width="350"/>
+    </Grid>
+</Page>
